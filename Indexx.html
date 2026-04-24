@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>swap sorter – bubble neighbour</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="sorter-panel">
+        <div class="title-block">
+            <h1 class="main-head">🫧 Bubble Sort</h1>
+            <p class="rule-note">swap only adjacent tiles when left > right (ascending order)</p>
+        </div>
+
+        <div class="stats-row">
+            <div class="stat-piece">
+                <span class="stat-name">swaps</span>
+                <span class="stat-number" id="swapCounter">0</span>
+            </div>
+            <div class="stat-piece">
+                <span class="stat-name">time left</span>
+                <span class="stat-number" id="timeCounter">0s</span>
+            </div>
+            <div class="stat-piece">
+                <span class="stat-name">grid</span>
+                <span class="stat-number" id="sizeDisplay">4</span>
+            </div>
+        </div>
+
+        <div class="goal-row">
+            <span class="goal-label">🎯 target (small → large):</span>
+            <span class="goal-values" id="targetList"></span>
+        </div>
+
+        <div class="difficulty-row">
+            <button data-size="4" class="diff-choice">easy (4) – 30s</button>
+            <button data-size="6" class="diff-choice active-diff">medium (6) – 45s</button>
+            <button data-size="8" class="diff-choice">hard (8) – 60s</button>
+        </div>
+
+        <div class="tile-container" id="tileContainer"></div>
+
+        <div class="feedback-area" id="feedbackMsg">✨ tap a tile, then tap a neighbour to swap</div>
+
+        <div class="button-strip">
+            <button id="restartAction">⟳ restart</button>
+            <button id="hintAction">💡 hint</button>
+        </div>
+
+        <div class="footer-note">ascending bubble — swap only when left > right</div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>

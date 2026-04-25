@@ -3,52 +3,55 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>swap sorter – bubble neighbour</title>
+    <title>Bubble Sort – Neighbour Swap</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="sorter-panel">
-        <div class="title-block">
-            <h1 class="main-head">🫧 Bubble Sort</h1>
-            <p class="rule-note">swap only adjacent tiles when left > right (ascending order)</p>
+    <div class="gameContainer">
+        <div class="gameHeader">
+            <h1 class="gameTitle">🫧 Bubble Sort</h1>
+            <p class="gameInstruction">Swap only adjacent tiles when left > right (ascending order)</p>
         </div>
 
-        <div class="stats-row">
-            <div class="stat-piece">
-                <span class="stat-name">swaps</span>
-                <span class="stat-number" id="swapCounter">0</span>
+        <div class="statsPanel">
+            <div class="statBlock">
+                <span class="statLabel">swaps</span>
+                <span class="statNumber" id="swapCount">0</span>
             </div>
-            <div class="stat-piece">
-                <span class="stat-name">time left</span>
-                <span class="stat-number" id="timeCounter">0s</span>
+            <div class="statBlock">
+                <span class="statLabel">time left</span>
+                <span class="statNumber" id="timeLeft">0s</span>
             </div>
-            <div class="stat-piece">
-                <span class="stat-name">grid</span>
-                <span class="stat-number" id="sizeDisplay">4</span>
+            <div class="statBlock">
+                <span class="statLabel">size</span>
+                <span class="statNumber" id="gridSize">4</span>
             </div>
         </div>
 
-        <div class="goal-row">
-            <span class="goal-label">🎯 target (small → large):</span>
-            <span class="goal-values" id="targetList"></span>
+        <div class="targetPanel">
+            <span class="targetLabel">🎯 goal (small → large):</span>
+            <span class="targetSequence" id="targetSeq"></span>
         </div>
 
-        <div class="difficulty-row">
-            <button data-size="4" class="diff-choice">easy (4) – 30s</button>
-            <button data-size="6" class="diff-choice active-diff">medium (6) – 45s</button>
-            <button data-size="8" class="diff-choice">hard (8) – 60s</button>
+        <div class="difficultyPanel">
+            <button data-size="4" class="diffBtn">easy (4) – 30s</button>
+            <button data-size="6" class="diffBtn activeDiff">medium (6) – 45s</button>
+            <button data-size="8" class="diffBtn">hard (8) – 60s</button>
         </div>
 
-        <div class="tile-container" id="tileContainer"></div>
+        <div class="board" id="board"></div>
 
-        <div class="feedback-area" id="feedbackMsg">✨ tap a tile, then tap a neighbour to swap</div>
+        <div class="messageArea" id="message">✨ Tap a tile, then tap a neighbour to swap</div>
 
-        <div class="button-strip">
-            <button id="restartAction">⟳ restart</button>
-            <button id="hintAction">💡 hint</button>
+        <div class="buttonPanel">
+            <button id="startBtn">▶ start</button>
+            <button id="pauseBtn">⏸ pause</button>
+            <button id="resumeBtn">▶ resume</button>
+            <button id="restartBtn">⟳ restart</button>
+            <button id="hintBtn">💡 hint</button>
         </div>
 
-        <div class="footer-note">ascending bubble — swap only when left > right</div>
+        <div class="footerNote">Ascending bubble — swap only when left > right</div>
     </div>
     <script src="script.js"></script>
 </body>

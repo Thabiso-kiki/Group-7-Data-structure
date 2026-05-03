@@ -3,7 +3,6 @@
     padding: 0;
     box-sizing: border-box;
 }
-
 body {
     background: radial-gradient(circle at 20% 30%, #1f3a4b, #0e2a38);
     font-family: 'Segoe UI', 'Inter', system-ui, sans-serif;
@@ -13,42 +12,95 @@ body {
     align-items: center;
     padding: 1.2rem;
 }
+.panel { display: none; }
+.panel.activePanel { display: block; }
+.appShell { width: 100%; max-width: 950px; }
 
-.gameContainer {
-    max-width: 880px;
+/* ========== MENU WITH BACKGROUND IMAGE ========== */
+.menuCard {
+    position: relative;
+    background: #fffaf0; /* fallback colour */
+    border-radius: 3rem 1.5rem 3rem 1.5rem;
+    box-shadow: 15px 15px 0 #b47c44;
+    padding: 2rem;
+    text-align: center;
+    /* === CHANGE THE IMAGE URL BELOW === */
+    background-image: url('back.jpeg');   /* <-- REPLACE with your picture file name */
+    background-size: cover;
+    background-position: center;
+    overflow: hidden;
+}
+/* semi‑transparent overlay for readability */
+.menuCard::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
     width: 100%;
+    height: 100%;
+    background: rgba(255, 250, 240, 0.85);
+    border-radius: inherit;
+    z-index: 1;
+}
+.menuCard > * {
+    position: relative;
+    z-index: 2;
+}
+.menuHeading {
+    font-size: 2.5rem;
+    font-weight: 800;
+    color: #b45f2b;
+    letter-spacing: -1px;
+}
+.menuTagline { color: #6b4c3a; margin-bottom: 2rem; }
+.gameButtons {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1.5rem;
+    margin: 1.5rem 0;
+}
+.gameSelector {
+    background: #ecd9c0;
+    border: 2px solid #b47c44;
+    border-radius: 2rem;
+    padding: 1rem 1.5rem;
+    cursor: pointer;
+    transition: 0.2s;
+    flex: 1;
+    min-width: 200px;
+}
+.gameSelector:hover {
+    transform: translateY(-5px);
+    background: #f4e2cf;
+    border-color: #b45f2b;
+    box-shadow: 0 8px 15px rgba(0,0,0,0.2);
+}
+.gameEmoji { font-size: 3rem; display: block; }
+.gameTitle { font-weight: 800; font-size: 1.4rem; color: #b45f2b; }
+.gameBrief { font-size: 0.8rem; color: #7a5a4a; }
+.menuFooter { margin-top: 2rem; font-size: 0.8rem; color: #9b7a5a; background: rgba(255,250,240,0.7); display: inline-block; padding: 0.3rem 1rem; border-radius: 2rem; }
+
+/* ========== GAME BOX (shared) ========== */
+.gameBox {
     background: #fffaf0;
     border-radius: 3rem 1.5rem 3rem 1.5rem;
     box-shadow: 15px 15px 0 #b47c44;
     padding: 1.8rem;
 }
-
-.gameTitle {
-    font-size: 2.2rem;
-    font-weight: 800;
-    color: #b45f2b;
-    text-align: center;
-    letter-spacing: -1px;
-}
-
-.gameInstruction {
-    text-align: center;
-    color: #6b4c3a;
-    font-size: 0.85rem;
-    margin-bottom: 1.2rem;
-}
-
-.statsPanel {
+.gameHead { font-size: 2rem; font-weight: 800; color: #b45f2b; text-align: center; }
+.gameRule { text-align: center; color: #6b4c3a; font-size: 0.85rem; margin-bottom: 1rem; }
+.statsBar {
     display: flex;
     justify-content: space-between;
     gap: 12px;
     background: #ecd9c0;
-    padding: 0.5rem 1.2rem;
+    padding: 0.5rem 1rem;
     border-radius: 3rem;
     margin-bottom: 1rem;
+    flex-wrap: wrap;
 }
-
-.statBlock {
+.statCard {
     background: white;
     border-radius: 2rem;
     padding: 0.2rem 1rem;
@@ -56,51 +108,25 @@ body {
     min-width: 70px;
     border: 1px solid #c0a080;
 }
-
-.statLabel {
-    font-size: 0.7rem;
-    font-weight: bold;
-    text-transform: uppercase;
-    color: #c46a2b;
-}
-
-.statNumber {
-    font-size: 1.6rem;
-    font-weight: 800;
-    color: #2c5a4a;
-    line-height: 1.2;
-    display: block;
-}
-
-.targetPanel {
+.statName { font-size: 0.7rem; font-weight: bold; text-transform: uppercase; color: #c46a2b; }
+.statDigit { font-size: 1.6rem; font-weight: 800; color: #2c5a4a; line-height: 1.2; display: block; }
+.targetRow {
     background: #f4e2cf;
     padding: 8px;
     border-radius: 2rem;
     text-align: center;
     margin: 12px 0;
 }
-
-.targetLabel {
-    font-weight: 600;
-    color: #b45f2b;
-    margin-right: 8px;
-}
-
-.targetSequence {
-    font-weight: bold;
-    color: #3a6b5e;
-    letter-spacing: 2px;
-}
-
-.difficultyPanel {
+.targetLabel { font-weight: 600; color: #b45f2b; margin-right: 8px; }
+.targetList { font-weight: bold; color: #3a6b5e; letter-spacing: 2px; }
+.difficultyRow {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
     gap: 10px;
     margin: 16px 0;
 }
-
-.diffBtn {
+.levelBtn {
     background: #ecd9c0;
     border: 1px solid #b47c44;
     padding: 6px 16px;
@@ -110,14 +136,12 @@ body {
     cursor: pointer;
     font-size: 0.8rem;
 }
-
-.diffBtn.activeDiff {
+.levelBtn.activeLevel {
     background: #b45f2b;
     color: white;
     border-color: #8b4513;
 }
-
-.board {
+.tileField {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
@@ -125,7 +149,6 @@ body {
     margin: 1.5rem 0;
     min-height: 280px;
 }
-
 .tile {
     background: #fff0e0;
     width: 75px;
@@ -141,31 +164,16 @@ body {
     color: #4a2e1e;
     transition: 0.05s linear;
 }
-
-.tile.selectedTile {
-    background: #ffbc7a;
-    transform: scale(0.96);
-    box-shadow: 2px 2px 0 #b49b7a;
-}
-
-.tile.winGlow {
-    background: #b5d96c;
-    color: #2a5a2a;
-    box-shadow: 6px 6px 0 #7fa83a;
-}
-
-.tile.vibrate {
-    animation: shakeAnim 0.2s ease-in-out 0s 2;
-}
-
+.tile.selectedTile { background: #ffbc7a; transform: scale(0.96); box-shadow: 2px 2px 0 #b49b7a; }
+.tile.winGlow { background: #b5d96c; color: #2a5a2a; box-shadow: 6px 6px 0 #7fa83a; }
+.tile.vibrate { animation: shakeAnim 0.2s ease-in-out 0s 2; }
 @keyframes shakeAnim {
     0% { transform: translateX(0px) rotate(0deg); }
     25% { transform: translateX(-5px) rotate(-1deg); }
     75% { transform: translateX(5px) rotate(1deg); }
     100% { transform: translateX(0px) rotate(0deg); }
 }
-
-.messageArea {
+.infoStrip {
     background: #ffe2c4;
     padding: 10px;
     border-radius: 2rem;
@@ -174,15 +182,13 @@ body {
     font-weight: 500;
     margin: 1rem 0;
 }
-
-.buttonPanel {
+.actionStrip {
     display: flex;
     justify-content: center;
     gap: 10px;
     flex-wrap: wrap;
 }
-
-.buttonPanel button {
+.actionStrip button {
     background: #b45f2b;
     border: none;
     color: white;
@@ -192,30 +198,10 @@ body {
     cursor: pointer;
     font-size: 0.8rem;
 }
-
-.buttonPanel button:hover {
-    background: #8b4513;
-    transform: translateY(-2px);
-}
-
-#restartBtn {
-    background: #2c6e8f;
-}
-
-.footerNote {
-    margin-top: 1.5rem;
-    font-size: 0.7rem;
-    text-align: center;
-    color: #9b7a5a;
-}
-
+.actionStrip button:hover { background: #8b4513; transform: translateY(-2px); }
+.navBack { background: #6b4c3a !important; }
+.bottomNote { margin-top: 1.5rem; font-size: 0.7rem; text-align: center; color: #9b7a5a; }
 @media (max-width: 560px) {
-    .tile {
-        width: 55px;
-        height: 55px;
-        font-size: 1.5rem;
-    }
-    .statNumber {
-        font-size: 1.2rem;
-    }
+    .tile { width: 55px; height: 55px; font-size: 1.5rem; }
+    .statDigit { font-size: 1.2rem; }
 }

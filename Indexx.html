@@ -3,55 +3,83 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>Bubble Sort – Neighbour Swap</title>
+    <title>Sorting Games – Bubble & Quick</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="gameContainer">
-        <div class="gameHeader">
-            <h1 class="gameTitle">🫧 Bubble Sort</h1>
-            <p class="gameInstruction">Swap only adjacent tiles when left > right (ascending order)</p>
-        </div>
-
-        <div class="statsPanel">
-            <div class="statBlock">
-                <span class="statLabel">swaps</span>
-                <span class="statNumber" id="swapCount">0</span>
+    <div class="appShell">
+        <!-- MENU PANEL -->
+        <div id="menuPanel" class="panel activePanel">
+            <div class="menuCard">
+                <h1 class="menuHeading">🎮 Sorting Games</h1>
+                <p class="menuTagline">Choose your challenge</p>
+                <div class="gameButtons">
+                    <button data-game="bubble" class="gameSelector bubbleSelect">
+                        <span class="gameEmoji">🫧</span>
+                        <span class="gameTitle">Bubble Sort</span>
+                        <span class="gameBrief">Manual adjacent swaps, lives, timer</span>
+                    </button>
+                    <button data-game="quick" class="gameSelector quickSelect">
+                        <span class="gameEmoji">⚡</span>
+                        <span class="gameTitle">Quick Sort</span>
+                        <span class="gameBrief">Play the partition game – click smaller elements</span>
+                    </button>
+                </div>
+                <div class="menuFooter">Pick a game – each has unique rules</div>
             </div>
-            <div class="statBlock">
-                <span class="statLabel">time left</span>
-                <span class="statNumber" id="timeLeft">0s</span>
+        </div>
+
+        <!-- BUBBLE SORT GAME PANEL -->
+        <div id="bubblePanel" class="panel">
+            <div class="gameBox">
+                <h2 class="gameHead">🫧 Bubble Sorter</h2>
+                <p class="gameRule">Swap only neighbouring tiles when left > right (ascending)</p>
+                <div class="statsBar">
+                    <div class="statCard"><span class="statName">swaps</span><span class="statDigit" id="bubSwap">0</span></div>
+                    <div class="statCard"><span class="statName">time left</span><span class="statDigit" id="bubTimer">0s</span></div>
+                    <div class="statCard"><span class="statName">size</span><span class="statDigit" id="bubSize">4</span></div>
+                    <div class="statCard"><span class="statName">❤️ lives</span><span class="statDigit" id="bubLives">3</span></div>
+                </div>
+                <div class="targetRow"><span class="targetLabel">🎯 target:</span><span class="targetList" id="bubTarget"></span></div>
+                <div class="difficultyRow">
+                    <button data-dim="4" class="levelBtn">easy (4) – 30s</button>
+                    <button data-dim="6" class="levelBtn activeLevel">medium (6) – 45s</button>
+                    <button data-dim="8" class="levelBtn">hard (8) – 60s</button>
+                </div>
+                <div class="tileField" id="bubField"></div>
+                <div class="infoStrip" id="bubInfo">✨ Tap a tile, then tap a neighbour to swap</div>
+                <div class="actionStrip">
+                    <button id="bubStart">▶ start</button>
+                    <button id="bubPause">⏸ pause</button>
+                    <button id="bubResume">▶ resume</button>
+                    <button id="bubRestart">⟳ restart</button>
+                    <button id="bubHint">💡 hint</button>
+                    <button id="backFromBubble" class="navBack">🏠 menu</button>
+                </div>
+                <div class="bottomNote">Wrong move = -1 life | Ascending bubble rule</div>
             </div>
-            <div class="statBlock">
-                <span class="statLabel">size</span>
-                <span class="statNumber" id="gridSize">4</span>
+        </div>
+
+        <!-- QUICK SORT PLAYABLE GAME PANEL -->
+        <div id="quickPanel" class="panel">
+            <div class="gameBox">
+                <h2 class="gameHead">⚡ Quick Sort – Partition Game</h2>
+                <p class="gameRule">Click on all tiles that are <strong>smaller than the pivot</strong> (orange).</p>
+                <div class="statsBar">
+                    <div class="statCard"><span class="statName">score</span><span class="statDigit" id="quickScore">0</span></div>
+                    <div class="statCard"><span class="statName">❤️ lives</span><span class="statDigit" id="quickLives">3</span></div>
+                    <div class="statCard"><span class="statName">level</span><span class="statDigit" id="quickLevel">1</span></div>
+                </div>
+                <div class="targetRow"><span class="targetLabel">🎯 pivot value:</span><span class="targetList" id="quickPivotShow"></span></div>
+                <div class="tileField" id="quickField"></div>
+                <div class="infoStrip" id="quickInfo">✨ Click all numbers smaller than the orange pivot</div>
+                <div class="actionStrip">
+                    <button id="quickNewGame">🔄 new game</button>
+                    <button id="backFromQuick" class="navBack">🏠 menu</button>
+                </div>
+                <div class="bottomNote">Each correct click = +1 score. Wrong click = -1 life. Complete all partitions to win!</div>
             </div>
         </div>
-
-        <div class="targetPanel">
-            <span class="targetLabel">🎯 goal (small → large):</span>
-            <span class="targetSequence" id="targetSeq"></span>
-        </div>
-
-        <div class="difficultyPanel">
-            <button data-size="4" class="diffBtn">easy (4) – 30s</button>
-            <button data-size="6" class="diffBtn activeDiff">medium (6) – 45s</button>
-            <button data-size="8" class="diffBtn">hard (8) – 60s</button>
-        </div>
-
-        <div class="board" id="board"></div>
-
-        <div class="messageArea" id="message">✨ Tap a tile, then tap a neighbour to swap</div>
-
-        <div class="buttonPanel">
-            <button id="startBtn">▶ start</button>
-            <button id="pauseBtn">⏸ pause</button>
-            <button id="resumeBtn">▶ resume</button>
-            <button id="restartBtn">⟳ restart</button>
-            <button id="hintBtn">💡 hint</button>
-        </div>
-
-        <div class="footerNote">Ascending bubble — swap only when left > right</div>
     </div>
     <script src="script.js"></script>
 </body>

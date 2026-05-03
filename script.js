@@ -45,7 +45,7 @@ document.addEventListener('DOMContentLoaded', function() {
             soundWarn.preload = "auto";
         }
         if (!soundBg) {
-            soundBg = new Audio("bgmusic.mp3");
+            soundBg = new Audio("background.mp3");
             soundBg.loop = true;
             soundBg.volume = 0.2;
             soundBg.preload = "auto";
